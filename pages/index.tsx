@@ -41,7 +41,7 @@ const Home: FC<{ content: { hero: any; features: any[] } }> = ({ content }) => {
 Home.defaultProps = {
   content: {
     features: [{ title: 'default feature', body: 'default body' }],
-    hero: { title: 'default title', body: 'default body' },
+    hero: { title: 'Jelels Hero', body: 'We are the best' },
   },
 }
 

@@ -57,7 +57,7 @@ const App: FC<{ folders?: any[]; activeFolder?: any; activeDoc?: any; activeDocs
           <NewFolderButton onClick={() => setIsShown(true)} />
         </Pane>
         <Pane>
-          <FolderList folders={[{Id: 2, name: 'hello'}]} />{' '}
+          <FolderList folders={folders} />{' '}
         </Pane>
       </Pane>
       <Pane marginLeft={300} width="calc(100vw - 300px)" height="100vh" overflowY="auto" position="relative">
@@ -69,10 +69,26 @@ const App: FC<{ folders?: any[]; activeFolder?: any; activeDoc?: any; activeDocs
   )
 }
 
-App.defaultProps = {
-  folders: [],
-}
 
+App.defaultProps = {
+  folders: [
+		{
+			id: 1,
+			name: 'Jelel',
+			_id: "Sports"
+		},
+		{
+			id: 2,
+			name: 'kelvin',
+			_id: 'Lifestyle'
+		},
+		{
+			id: 3,
+			name: 'Musa',
+			_id: "tech"
+		},
+	]
+}
 /**
  * Catch all handler. Must handle all different page
  * states.
@@ -84,4 +100,5 @@ App.defaultProps = {
  *
  * @param context
  */
+
 export default App

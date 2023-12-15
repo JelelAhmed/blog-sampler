@@ -24,7 +24,7 @@ const FeatureSection: FC<{ invert?: boolean; title: string; body: string; image:
   const children = invert ? [Right, Left] : [Left, Right]
   return (
     <Pane
-      minHeight="70vh"
+      minHeight="100vh"
       background={invert ? 'tint1' : 'white'}
       paddingY={majorScale(8)}
       borderTop

@@ -5,9 +5,16 @@ import Intro from '../components/intro'
 import HomeNav from '../components/homeNav'
 import BlogCategories from '../components/blogCategories'
 
-const Home: FC<{ content: { intro: any; hero: any; features: any[]; categories: any[] } }> = ({ content }) => {
+import BLOG_DATA from '../blogs';
+import { copyFileSync } from 'fs'
+import { title } from 'process'
 
-	
+// const Home: FC<{ intro: string; content: { intro: any; [key: string]: { id: number; title: string; routeName: string; samples: any[]} } categories: any[]; }> = ({ intro, content }) => {
+
+	const Home: FC<{ intro: any; content: any }> = ({ intro, content }) => {
+
+		console.log(content)
+
 
   return (
     <Pane background="
@@ -20,11 +27,11 @@ const Home: FC<{ content: { intro: any; hero: any; features: any[]; categories: 
 			<header>
 				<HomeNav />
 				<Container>
-					<Intro content={content.intro} />
+					<Intro content={intro} />
 				</Container>
 			</header>
       <main>
-				<BlogCategories categories={content.categories}/>
+				<BlogCategories categories={content}/>
         {/* {content.features.map((feature, i) => (
           <BlogCategories
 						categories={content.categories}
@@ -44,24 +51,21 @@ const Home: FC<{ content: { intro: any; hero: any; features: any[]; categories: 
  * Should really get this content from our CMS
  */
 
-Home.defaultProps = {
-  content: {
-    features: [{ title: 'Categories', body: 'Here is the body text' }],
-		categories: [
-			{ id: 1, name: "Business" },
-			{ id: 1, name: "Tech" },
-			{ id: 1, name: "Lifestyle" },
-			{ id: 1, name: "Food" },
-			{ id: 1, name: "Real Estate" },
-			{ id: 1, name: "Sport", },
-			{ id: 1, name: "Entertainment", },
-			{ id: 1, name: "History", },
-			{ id: 1, name: "Culture", },
 
-		],
-    hero: { title: 'default title', body: 'default body' },
-		intro: { title: "jelel6's Blog Samples", body: "Seeing is believing, So I welcome you to view my writing samples! Please, select a categories from the list below to read my some of my previous works under that categories. You can always come back to this page. enjoy"},
-  },
+Home.defaultProps = {
+
+	intro: { title: "Jelel6's Blog Samples", body: "Seeing is believing, So I welcome you to view my writing samples! Please, select a categories from the list below to read my some of my previous works under that categories. You can always come back to this page. enjoy"},
+}
+
+
+
+
+export function getStaticProps() {
+	return {
+		props: {
+			content: BLOG_DATA,
+		},
+	}
 }
 
 export default Home

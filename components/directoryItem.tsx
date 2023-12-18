@@ -14,7 +14,7 @@ const DirectoryItem: FC<{ name: string; slug: string }> = ({ name, slug }) => {
       alignItems="flex-start"
       justifyContent="space-between"
     >
-      <Link href={`/${slug}`} passHref>
+      <Link href={`/${'post'}`} passHref>
         <Pane
           display="flex"
           flexDirection="row"

@@ -3,17 +3,13 @@ import { Pane, majorScale } from 'evergreen-ui'
 import Container from '../components/container'
 import Intro from '../components/intro'
 import HomeNav from '../components/homeNav'
-import BlogCategories from '../components/blogCategories'
 
-import BLOG_DATA from '../blogs';
-import { copyFileSync } from 'fs'
-import { title } from 'process'
+import { categories } from '../BLOG_DATA';
+import Directory from '../components/directory'
 
 // const Home: FC<{ intro: string; content: { intro: any; [key: string]: { id: number; title: string; routeName: string; samples: any[]} } categories: any[]; }> = ({ intro, content }) => {
 
-	const Home: FC<{ intro: any; content: any }> = ({ intro, content }) => {
-
-		console.log(content)
+	const Home: FC<{ intro: any; content: any; categories: any }> = ({ intro, categories }) => {
 
 
   return (
@@ -31,7 +27,7 @@ import { title } from 'process'
 				</Container>
 			</header>
       <main>
-				<BlogCategories categories={content}/>
+				<Directory categories={categories}/>
         {/* {content.features.map((feature, i) => (
           <BlogCategories
 						categories={content.categories}
@@ -63,9 +59,34 @@ Home.defaultProps = {
 export function getStaticProps() {
 	return {
 		props: {
-			content: BLOG_DATA,
+		 categories,
 		},
 	}
 }
 
 export default Home
+
+
+
+
+// import Link from 'next/link';
+// import { categories } from '../path-to-data-file';
+
+// const HomePage = () => {
+//   return (
+//     <div>
+//       <h1>Select a Category</h1>
+//       <ul>
+//         {categories.map((category) => (
+//           <li key={category.id}>
+//             <Link href={`/categories/${category.slug}`}>
+//               <a>{category.name}</a>
+//             </Link>
+//           </li>
+//         ))}
+//       </ul>
+//     </div>
+//   );
+// };
+
+// export HomePage;

@@ -6,6 +6,7 @@ import { Pane, Heading, Paragraph, majorScale, Text } from 'evergreen-ui'
 
 
 const DirectoryItem: FC<{ name: string; slug: string }> = ({ name, slug }) => {
+	console.log(slug, 'directoryItem')
 
   return (
     <Pane
@@ -13,8 +14,8 @@ const DirectoryItem: FC<{ name: string; slug: string }> = ({ name, slug }) => {
       flexDirection="column"
       alignItems="flex-start"
       justifyContent="space-between"
-    >
-      <Link href={`/${'post'}`} passHref>
+    >	
+      <Link href="/app/[slug]" as={`/app/${slug}?category=${slug}`}>
         <Pane
           display="flex"
           flexDirection="row"

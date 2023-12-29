@@ -1,13 +1,21 @@
 import React, { FC } from 'react'
+
 import { Pane, majorScale } from 'evergreen-ui'
 import Container from '../components/container'
 import Intro from '../components/intro'
 import HomeNav from '../components/homeNav'
 
+import fs from 'fs'
+import path from 'path'
+
+
+
 import { categories } from '../BLOG_DATA';
 import Directory from '../components/directory'
 
 const Home: FC<{ intro: any; content: any; categories: any }> = ({ intro, categories }) => {
+
+
 
   return (
     <Pane background="
@@ -43,7 +51,23 @@ Home.defaultProps = {
 
 
 
-export function getStaticProps() {
+export const getStaticProps = async () => {
+
+	const postsFolder = path.join(process.cwd(), 'contents');
+
+	const readFilenames = async () => {
+		try {
+			const filenames = await fs.promises.readdir(postsFolder);
+			console.log('Filenames:', filenames);
+			return filenames;
+		} catch (error) {
+			console.error('Error reading filenames:', error);
+			throw error;
+		}
+	};
+
+	const categories = await readFilenames()
+
 	return {
 		props: {
 		 categories,

@@ -5,8 +5,8 @@ import { Pane, Heading, Paragraph, majorScale, Text } from 'evergreen-ui'
 
 
 
-const DirectoryItem: FC<{ name: string; slug: string }> = ({ name, slug }) => {
-	console.log(slug, 'directoryItem')
+const DirectoryItem: FC<{ category: string }> = ({ category }) => {
+
 
   return (
     <Pane
@@ -15,7 +15,7 @@ const DirectoryItem: FC<{ name: string; slug: string }> = ({ name, slug }) => {
       alignItems="flex-start"
       justifyContent="space-between"
     >	
-      <Link href="/app/[slug]" as={`/app/${slug}?category=${slug}`}>
+      <Link href="/app/[slug]" as={`/app/${category}?category=${category}`}>
         <Pane
           display="flex"
           flexDirection="row"
@@ -33,7 +33,7 @@ const DirectoryItem: FC<{ name: string; slug: string }> = ({ name, slug }) => {
           paddingX={majorScale(3)}
         >
           <Text size={600} color="#234361" fontWeight="bold" textAlign="center">
-            {`${name}`}
+            {`${category.toLocaleUpperCase()}`}
           </Text>
         </Pane>
       </Link>

@@ -1,27 +1,29 @@
 import React, { useState, FC, useEffect } from 'react';
+import path from 'path'
+import fs from 'fs'
 import hydrate from 'next-mdx-remote/hydrate';
+import renderToString from 'next-mdx-remote/render-to-string';
 import matter from 'gray-matter';
-import { majorScale, Pane, Heading } from 'evergreen-ui';
+import { majorScale, Pane, Heading, Text } from 'evergreen-ui';
 import Logo from '../../components/logo';
 import NewFolderButton from '../../components/newFolderButton';
 import PostList from '../../components/postList';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
-import renderToString from 'next-mdx-remote/render-to-string';
 import { Post } from '../../types';
+import FrontMatter from '../../components/frontMatter'
 import Container from '../../components/container';
 import HomeNav from '../../components/homeNav';
 import { categories, blogPosts } from '../../BLOG_DATA';
-import path from 'path'
-import fs from 'fs'
 
-const App: FC<{ folders?: any[]; activeFolder?: any; activeDoc?: any; activeDocs?: any[]; post: any; niche: string; postsForCategory: []; selectedPost: any }> = ({
+
+const App: FC<{ folders?: any[]; activeFolder?: any; activeDoc?: any; activeDocs?: any[]; post: any; niche: string; postsData: any; selectedPost: any }> = ({
   folders,
   activeDoc,
   activeFolder,
   activeDocs,
   post,
-  postsForCategory
+	postsData
 }) => {
 
 
@@ -31,17 +33,26 @@ const App: FC<{ folders?: any[]; activeFolder?: any; activeDoc?: any; activeDocs
   const [newFolderIsShown, setIsShown] = useState(false)
 	const [allFolders, setAllFolders] = useState(folders || [2, 3])
 
-	const [selectedPost, setSelectedPost] = useState(postsForCategory[0])
+
+	const [selectedPost, setSelectedPost] = useState(postsData[0]);
+	const { frontMatter } = selectedPost
+	const content = hydrate(selectedPost.source)
+	const title = selectedPost.frontMatter.title
+
+
+  // Access the frontMatter of the first item in the array
+  // const frontMatterOfFirstPost = selectedPost ? selectedPost.frontMatter : null;
+	// console.log(frontMatterOfFirstPost.title, 'title of second frontMatter')
 
 
 
 	useEffect(() => {
-		console.log(selectedPost, 'useEffect');
+		// console.log(selectedPost, 'useEffect');
 	}, [selectedPost]);
 
-	console.log(selectedPost, 'useEffect');
+	// console.log(selectedPost, 'useEffect');
 
-	const { content, id, title } = selectedPost
+	const { source } = selectedPost;
 
 
 
@@ -51,7 +62,6 @@ const App: FC<{ folders?: any[]; activeFolder?: any; activeDoc?: any; activeDocs
 
 	// const { content } = post
   // Your component logic
-	console.log(postsForCategory)
 
 	return (
     <Pane>
@@ -61,7 +71,7 @@ const App: FC<{ folders?: any[]; activeFolder?: any; activeDoc?: any; activeDocs
           <NewFolderButton onClick={() => setIsShown(true)} />
         </Pane>
         <Pane>
-          <PostList getSelectedPost={getSelectedPost} posts={postsForCategory} niche={slug}/>
+          <PostList getSelectedPost={getSelectedPost} posts={postsData} niche={slug}/>
         </Pane>
       </Pane>
       <Head>
@@ -74,12 +84,25 @@ const App: FC<{ folders?: any[]; activeFolder?: any; activeDoc?: any; activeDocs
 				</header>
 			</Pane>
       <main>
-				<Pane marginLeft={300} width="calc(100vw - 380px)" height="100vh" overflowY="auto" position="relative">
+				<Pane background=" #f5f5f5" marginLeft={300} width="calc(100vw - 380px)" height="100vh" overflowY="auto" position="relative">
 					<Container>
-						<Heading fontSize="clamp(1.5rem, 8vw, 4rem)" lineHeight="clamp(1rem, 8vw, 6rem)" marginY={majorScale(8)}>
+						<Heading fontFamily='Roboto Mono, monospace' color={'#333'} fontSize="clamp(1.5rem, 8vw, 3rem)" lineHeight="clamp(1.2, 8vw, 1.8)" marginY={majorScale(8)}>
 							{title}
+						<Pane><FrontMatter frontMatter={frontMatter} /></Pane>	
 						</Heading>
-						<Pane>{content}</Pane>
+						<Text
+							 fontFamily="Merriweather, serif"
+							 fontSize="18px"
+							 lineHeight="1.5"
+							 color="#333333"
+							//  color='##425A70'
+							// fontSize="clamp(.5rem, 8vw, 1.2rem)"
+							// letterSpacing='0.05px'
+							// lineHeight="clamp(1, 8vw, 1.6)"
+							marginBottom={majorScale(3)}
+						>
+							{content}
+						</Text>
 					</Container>
 				</Pane>
       </main>
@@ -93,21 +116,57 @@ App.defaultProps = {
 };
 
 
+
+
 export const getServerSideProps = async (context) => {
-	const postsPath = path.join(process.cwd(), 'posts')
-	const fileNames = fs.readdirSync(postsPath)
-	const postsForCategory = fileNames.map(name => {
-		const fullPath = path.join(process.cwd(), 'posts', name)
-		const file = fs.readFileSync(fullPath , 'utf-8')
-		const {data} = matter(file)
-		return data
-	})
+  
+	
+	const { slug } = context.params
+	const subdirectory = slug
+
+  const postsPath = path.join(process.cwd(), 'contents', subdirectory)
+
+	try {
+    const stats = await fs.promises.stat(postsPath);
+
+    if (!stats.isDirectory()) {
+      // Handle the case where the path exists but is not a directory
+      return {
+        props: { postsData: [] }, // or handle it accordingly
+      };
+    }
+
+    const fileNames = await fs.promises.readdir(postsPath);
+		const postsData = await Promise.all(
+			fileNames.map(async (name) => {
+				const fullPath = path.join(postsPath, name);
+				const file = fs.readFileSync(fullPath, 'utf-8');
+				const { content, data } = matter(file);
+	
+				// Use await for asynchronous operations
+				const mdxSource = await renderToString(content, { scope: data });
+				return { source: mdxSource, frontMatter: data };
+			})
+		);
+	
+		return {
+			props: { postsData },
+		};
+    // Continue with the rest of your logic to read and process files
+    // ...
+
+  } catch (error) {
+    // Handle the case where the directory does not exist
+    return {
+      props: { postsData: [] }, // or handle it accordingly
+    };
+  }
+};
 
 
-	return {
-		props: { postsForCategory }
-	}
-}
+
+  // Use Promise.all to wait for all promises to resolve
+  
 
 
 

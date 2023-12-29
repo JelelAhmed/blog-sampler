@@ -2,30 +2,32 @@ import { Pane, majorScale, Menu, FolderCloseIcon } from 'evergreen-ui';
 import React, { FC } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
+import { title } from 'process';
 
-const PostList: FC<{ posts: any; niche: string; getSelectedPost: (post: any) => void }> = ({ posts, niche, getSelectedPost }) => {
+const PostList: FC<{ posts: any; niche: string; title: string; getSelectedPost: (post: any) => void }> = ({ posts, niche, getSelectedPost }) => {
   const router = useRouter();
 
-  console.log(posts, 'postInPostlist');
+  console.log(title, 'postInPostlist');
 
   return (
     <Pane padding={majorScale(2)}>
-    <Menu>
-      {posts.map((post) => (
-        <Link
-          key={post.slug}
-          href="/app/[slug]"
-          as={`/app/${post.slug}`}>
-					<div>
-						<a onClick={(e) => {e.preventDefault(); getSelectedPost(post)}}>
-							<Menu.Item key={post.slug} icon={<FolderCloseIcon />}>
-								{post.title}
-							</Menu.Item>
-						</a>
-					</div>  
-        </Link>
-      ))}
-    </Menu>
+			<Menu>
+  {posts.map((postData, index) => (
+    <Link
+      key={index}
+      href="/app/[slug]"
+      as={`/app/${postData.frontMatter.slug}`} // Replace with the actual property representing the slug
+    >
+      <div>
+        <a onClick={(e) => { e.preventDefault(); getSelectedPost(postData) }}>
+          <Menu.Item key={index} icon={<FolderCloseIcon />}>
+            {postData.frontMatter.title}
+          </Menu.Item>
+        </a>
+      </div>
+    </Link>
+  ))}
+</Menu>
   </Pane>
   );
 };
@@ -41,7 +43,22 @@ export default PostList;
 
 
 
-
+// <Menu>
+//       {posts.map((post) => (
+//         <Link
+//           key={post.slug}
+//           href="/app/[slug]"
+//           as={`/app/${post.slug}`}>
+// 					<div>
+// 						<a onClick={(e) => {e.preventDefault(); getSelectedPost(post)}}>
+// 							<Menu.Item key={post.slug} icon={<FolderCloseIcon />}>
+// 								{post.title}
+// 							</Menu.Item>
+// 						</a>
+// 					</div>  
+//         </Link>
+//       ))}
+//     </Menu>
 
 
 

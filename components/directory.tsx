@@ -7,6 +7,7 @@ import BlogItem from './blogItem'
 
 const Directory: FC<{ categories: any }> = ({ categories }) => {
 
+	console.log(categories, 'directory')
 
   return (
     <Pane
@@ -35,7 +36,7 @@ const Directory: FC<{ categories: any }> = ({ categories }) => {
           </Heading>
         </Pane>
         {categories.map(category => (
-					<DirectoryItem key={category.id} {...category} />
+					<DirectoryItem key={category} category={category} />
         ))}
       </Container>
     </Pane>

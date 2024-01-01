@@ -4,7 +4,7 @@ import fs from 'fs'
 import hydrate from 'next-mdx-remote/hydrate';
 import renderToString from 'next-mdx-remote/render-to-string';
 import matter from 'gray-matter';
-import { majorScale, Pane, Heading, Text } from 'evergreen-ui';
+import { majorScale, Pane, Heading, Text, Button, SideSheet } from 'evergreen-ui';
 import Logo from '../../components/logo';
 import NewFolderButton from '../../components/newFolderButton';
 import PostList from '../../components/postList';
@@ -32,6 +32,9 @@ const App: FC<{ folders?: any[]; activeFolder?: any; activeDoc?: any; activeDocs
 	console.log(slug, 'app slug')
   const [newFolderIsShown, setIsShown] = useState(false)
 	const [allFolders, setAllFolders] = useState(folders || [2, 3])
+	const [isSideSheetOpen, setIsSideSheetOpen] = useState(false);
+	const [isSmallScreen, setIsSmallScreen] = useState(false);
+
 
 
 	const [selectedPost, setSelectedPost] = useState(postsData[0]);
@@ -50,6 +53,23 @@ const App: FC<{ folders?: any[]; activeFolder?: any; activeDoc?: any; activeDocs
 		// console.log(selectedPost, 'useEffect');
 	}, [selectedPost]);
 
+	useEffect(() => {
+    const checkScreenWidth = () => {
+      setIsSmallScreen(window.innerWidth <= 768);
+    };
+
+    // Initial check
+    checkScreenWidth();
+
+    // Event listener for screen width changes
+    window.addEventListener('resize', checkScreenWidth);
+
+    // Cleanup the event listener on component unmount
+    return () => {
+      window.removeEventListener('resize', checkScreenWidth);
+    };
+  }, []);
+
 	// console.log(selectedPost, 'useEffect');
 
 	const { source } = selectedPost;
@@ -60,20 +80,56 @@ const App: FC<{ folders?: any[]; activeFolder?: any; activeDoc?: any; activeDocs
 		setSelectedPost(post)
 	}
 
+	const openSideSheet = () => {
+    setIsSideSheetOpen(true);
+  };
+
+  // Function to handle closing the SideSheet
+  const closeSideSheet = () => {
+    setIsSideSheetOpen(false);
+	}
+
+	const toggleSideSheet = () => {
+		setIsSideSheetOpen(!isSideSheetOpen)
+	}
 	// const { content } = post
   // Your component logic
 
 	return (
     <Pane>
-			<Pane width={300} position="fixed" top={0} left={0} background="tint2" height="100vh" borderRight>
-        <Pane padding={majorScale(2)} display="flex" alignItems="center" justifyContent="space-between">
-          <Logo />
-          <NewFolderButton onClick={() => setIsShown(true)} />
-        </Pane>
-        <Pane>
-          <PostList getSelectedPost={getSelectedPost} posts={postsData} niche={slug}/>
-        </Pane>
-      </Pane>
+			{/* Sidebar or Button for smaller screens */}
+      {/* {isSmallScreen && (
+        <Button onClick={openSideSheet}>Open Sidebar</Button>
+      )} */}
+			{!isSmallScreen ? 
+			(
+        <Pane className="sidebar" width={300} position="fixed" top={0} left={0} background="tint2" height="100vh" borderRight>
+					<Pane padding={majorScale(2)} display="flex" alignItems="center" justifyContent="space-between">
+						<Logo />
+						<NewFolderButton onClick={() => setIsShown(true)} />
+						</Pane>
+						<Pane>
+							<PostList getSelectedPost={getSelectedPost} posts={postsData} niche={slug}/>
+					  </Pane>
+				</Pane>
+			): (<Pane className="sidebar" width={300} position="fixed" top={0} left={0} background="green" height="100vh" borderRight>
+			<Pane padding={majorScale(2)} display="flex" alignItems="center" justifyContent="space-between">
+				<NewFolderButton onClick={() => setIsShown(true)} />
+				</Pane>
+				<Pane>
+					<Button onClick={toggleSideSheet}>See Topics</Button>
+					<SideSheet 
+						width='auto' 
+						position='left' 
+						isShown={isSideSheetOpen}
+						onCloseComplete={toggleSideSheet}>
+						<Pane padding={majorScale(2)} display="flex" alignItems="center" justifyContent="space-between">
+							<PostList getSelectedPost={getSelectedPost} posts={postsData} niche={slug}/>
+						</Pane>
+							
+					</SideSheet>
+			</Pane>
+		</Pane>)}
       <Head>
         <title>{`Known Blog | ${'frontMatter.title'}`}</title>
         <meta name="description" content={'frontMatter.summary'} />
@@ -84,21 +140,28 @@ const App: FC<{ folders?: any[]; activeFolder?: any; activeDoc?: any; activeDocs
 				</header>
 			</Pane>
       <main>
-				<Pane background=" #f5f5f5" marginLeft={300} width="calc(100vw - 380px)" height="100vh" overflowY="auto" position="relative">
+				<Pane 
+					background="#f5f5f5"
+					marginLeft={300} 
+					width="calc(100vw - 380px)"
+					height="100vh"
+					overflowY="auto"
+					position="relative"
+					padding={majorScale(2)} // Use majorScale for responsive padding
+					boxSizing="border-box" // Ensure padding is included in the width 
+			>
 					<Container>
 						<Heading fontFamily='Roboto Mono, monospace' color={'#333'} fontSize="clamp(1.5rem, 8vw, 3rem)" lineHeight="clamp(1.2, 8vw, 1.8)" marginY={majorScale(8)}>
 							{title}
 						<Pane><FrontMatter frontMatter={frontMatter} /></Pane>	
 						</Heading>
 						<Text
-							 fontFamily="Merriweather, serif"
-							 fontSize="18px"
-							 lineHeight="1.5"
-							 color="#333333"
-							//  color='##425A70'
-							// fontSize="clamp(.5rem, 8vw, 1.2rem)"
-							// letterSpacing='0.05px'
-							// lineHeight="clamp(1, 8vw, 1.6)"
+							fontFamily="Source Sans Pro"
+							fontSize="16px"
+							fontWeight="lighter"
+							lineHeight="1.5"
+							letterSpacing="0.01"
+							color="#333333"
 							marginBottom={majorScale(3)}
 						>
 							{content}

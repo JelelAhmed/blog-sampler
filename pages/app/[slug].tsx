@@ -112,24 +112,20 @@ const App: FC<{ folders?: any[]; activeFolder?: any; activeDoc?: any; activeDocs
 							<PostList toggleSideSheet={toggleSideSheet} getSelectedPost={getSelectedPost} posts={postsData} niche={slug}/>
 					  </Pane>
 				</Pane>
-			): (<Pane className="sidebar" width={300} position="fixed" top={0} left={0} background="green" height="100vh" borderRight>
-			<Pane padding={majorScale(2)} display="flex" alignItems="center" justifyContent="space-between">
-				<NewFolderButton onClick={() => setIsShown(true)} />
-				</Pane>
-				<Pane>
-					<Button onClick={toggleSideSheet}>See Topics</Button>
-					<SideSheet 
-						width='auto' 
+			): (
+				<Pane zIndex='1' height='100vh' position="fixed" marginTop={majorScale(9)} left={0}>
+					{isSideSheetOpen ? null : <Button onClick={toggleSideSheet}>See Topics</Button> }
+					<SideSheet
+						width='70vw' 
 						position='left' 
 						isShown={isSideSheetOpen}
 						onCloseComplete={isSideSheetOpen ? toggleSideSheet : null}>
-						<Pane padding={majorScale(2)} display="flex" alignItems="center" justifyContent="space-between">
+						<Pane padding={majorScale(2)} marginTop={majorScale(8)} display="flex" alignItems="center" justifyContent="space-between">
 							<PostList getSelectedPost={getSelectedPost} toggleSideSheet={toggleSideSheet} posts={postsData} niche={slug}/>
-						</Pane>
-							
+						</Pane>						
 					</SideSheet>
-			</Pane>
-		</Pane>)}
+				</Pane>
+			)}
       <Head>
         <title>{`Known Blog | ${'frontMatter.title'}`}</title>
         <meta name="description" content={'frontMatter.summary'} />
@@ -142,8 +138,8 @@ const App: FC<{ folders?: any[]; activeFolder?: any; activeDoc?: any; activeDocs
       <main>
 				<Pane 
 					background="#f5f5f5"
-					marginLeft={300} 
-					width="calc(100vw - 380px)"
+					marginLeft={isSmallScreen ? 'auto' : '300px'}
+					width={isSmallScreen ? '100%' : "calc(100vw - 380px)"}
 					height="100vh"
 					overflowY="auto"
 					position="relative"

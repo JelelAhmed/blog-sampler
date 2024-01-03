@@ -15,13 +15,14 @@ const PostList: FC<{ posts: any; niche: string; title: string; toggleSideSheet: 
 			<Menu>
   {posts.map((postData, index) => (
     <Link
+		padding={majorScale(2)}
       key={index}
       href="/app/[slug]"
       as={`/app/${postData.frontMatter.slug}`} // Replace with the actual property representing the slug
     >
       <div>
         <a onClick={(e) => { e.preventDefault(); getSelectedPost(postData); console.log('Calling toggleSideSheet'); toggleSideSheet()}}>
-          <Menu.Item key={index} icon={<FolderCloseIcon />}>
+          <Menu.Item key={index} icon={<FolderCloseIcon />} marginTop={majorScale(2)} color='green'>
             {postData.frontMatter.title}
           </Menu.Item>
         </a>

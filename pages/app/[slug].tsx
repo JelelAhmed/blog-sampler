@@ -17,7 +17,7 @@ import HomeNav from '../../components/homeNav';
 import { categories, blogPosts } from '../../BLOG_DATA';
 
 
-const App: FC<{ folders?: any[]; activeFolder?: any; activeDoc?: any; activeDocs?: any[]; post: any; niche: string; postsData: any; selectedPost: any }> = ({
+const App: FC<{ folders?: any[]; activeFolder?: any; activeDoc?: any; activeDocs?: any[]; post: any; niche: string; postsData: any; selectedPost: any; toggleSideSheet: any }> = ({
   folders,
   activeDoc,
   activeFolder,
@@ -109,7 +109,7 @@ const App: FC<{ folders?: any[]; activeFolder?: any; activeDoc?: any; activeDocs
 						<NewFolderButton onClick={() => setIsShown(true)} />
 						</Pane>
 						<Pane>
-							<PostList getSelectedPost={getSelectedPost} posts={postsData} niche={slug}/>
+							<PostList toggleSideSheet={toggleSideSheet} getSelectedPost={getSelectedPost} posts={postsData} niche={slug}/>
 					  </Pane>
 				</Pane>
 			): (<Pane className="sidebar" width={300} position="fixed" top={0} left={0} background="green" height="100vh" borderRight>
@@ -122,9 +122,9 @@ const App: FC<{ folders?: any[]; activeFolder?: any; activeDoc?: any; activeDocs
 						width='auto' 
 						position='left' 
 						isShown={isSideSheetOpen}
-						onCloseComplete={toggleSideSheet}>
+						onCloseComplete={isSideSheetOpen ? toggleSideSheet : null}>
 						<Pane padding={majorScale(2)} display="flex" alignItems="center" justifyContent="space-between">
-							<PostList getSelectedPost={getSelectedPost} posts={postsData} niche={slug}/>
+							<PostList getSelectedPost={getSelectedPost} toggleSideSheet={toggleSideSheet} posts={postsData} niche={slug}/>
 						</Pane>
 							
 					</SideSheet>

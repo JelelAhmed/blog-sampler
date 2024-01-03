@@ -4,9 +4,10 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { title } from 'process';
 
-const PostList: FC<{ posts: any; niche: string; title: string; getSelectedPost: (post: any) => void }> = ({ posts, niche, getSelectedPost }) => {
+const PostList: FC<{ posts: any; niche: string; title: string; toggleSideSheet: () => void; getSelectedPost: (post: any) => void }> = ({ toggleSideSheet, posts, niche, getSelectedPost }) => {
   const router = useRouter();
 
+	console.log('Received toggleSideSheet prop:', toggleSideSheet);
   console.log(title, 'postInPostlist');
 
   return (
@@ -19,7 +20,7 @@ const PostList: FC<{ posts: any; niche: string; title: string; getSelectedPost: 
       as={`/app/${postData.frontMatter.slug}`} // Replace with the actual property representing the slug
     >
       <div>
-        <a onClick={(e) => { e.preventDefault(); getSelectedPost(postData) }}>
+        <a onClick={(e) => { e.preventDefault(); getSelectedPost(postData); console.log('Calling toggleSideSheet'); toggleSideSheet()}}>
           <Menu.Item key={index} icon={<FolderCloseIcon />}>
             {postData.frontMatter.title}
           </Menu.Item>

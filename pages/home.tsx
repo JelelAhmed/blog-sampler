@@ -1,6 +1,6 @@
 import React, { FC } from 'react'
 
-import { Pane } from 'evergreen-ui'
+import { Pane, majorScale } from 'evergreen-ui'
 import Container from '../components/container'
 import Intro from '../components/intro'
 import HomeNav from '../components/homeNav'
@@ -14,9 +14,7 @@ import { categories } from '../BLOG_DATA';
 import Directory from '../components/directory'
 
 const Home: FC<{ intro: any; content: any; categories: any }> = ({ intro, categories }) => {
- 
-	const isSmallScreen = null;
-	const toggleSideSheet = () => null
+
 
 
   return (
@@ -33,7 +31,7 @@ const Home: FC<{ intro: any; content: any; categories: any }> = ({ intro, catego
 		letterSpacing="0.01"
 		>
 			<header>
-				<HomeNav toggleSideSheet={toggleSideSheet} isSmallScreen={isSmallScreen}/>
+				<HomeNav />
 				<Container> 
 					<Intro content={intro} />
 				</Container>

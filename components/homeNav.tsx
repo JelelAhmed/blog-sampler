@@ -7,8 +7,7 @@ import { useSession } from 'next-auth/client'
 import Container from './container'
 import Logo from './logo'
 
-const HomeNav: FC<{ links?: { name: string; link: string }[]; isSmallScreen: any; toggleSideSheet: () => void }> = ({ links, isSmallScreen, toggleSideSheet }) => {
-  const [session] = useSession()
+const HomeNav: FC<{ isSmallScreen: any; toggleSideSheet: () => void }> = ({ isSmallScreen, toggleSideSheet }) => {
 
   return (
     <nav>
@@ -21,7 +20,7 @@ const HomeNav: FC<{ links?: { name: string; link: string }[]; isSmallScreen: any
 			>
         <Container height="100%">
           <Pane padding={majorScale(2)} display="flex" justifyContent="space-between" alignItems="center" height="100%">
-					{isSmallScreen ? <OpenSideSheet toggleSideSheet={toggleSideSheet} /> : <Logo />}
+					{isSmallScreen ? <OpenSideSheet toggleSideSheet={toggleSideSheet} /> : <Logo isSmallScreen={isSmallScreen} />}
 
             <Pane display="flex" justifyContent="space-around" alignItems="center">
               <Pane paddingX={majorScale(1)}>
@@ -30,7 +29,7 @@ const HomeNav: FC<{ links?: { name: string; link: string }[]; isSmallScreen: any
                     <Button 
 											display='flex' 
 											appearance="minimal" 
-											size="medium" 
+											// size="medium" 
 											iconBefore={PersonIcon}
 											fontSize={isSmallScreen ? '12px' : '16px'}
 										>
@@ -47,8 +46,5 @@ const HomeNav: FC<{ links?: { name: string; link: string }[]; isSmallScreen: any
   )
 }
 
-HomeNav.defaultProps = {
-  links: [{ name: 'Blog', link: '/blog' }],
-}
 
 export default HomeNav

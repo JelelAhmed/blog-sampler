@@ -17,9 +17,8 @@ const Intro: FC<{ content: { title: string; body: string } }> = ({ content }) =>
         <Paragraph 
 					fontSize="clamp(1.2rem, 4vw, 1.2rem)" 
 					lineHeight="clamp(1.2rem, 4vw, 2rem)"
-					fontFamily="Source Sans Pro"
+					// fontFamily="Source Sans Pro"
 					fontWeight="lighter"
-					lineHeight="1.5"
 					letterSpacing="0.01"
 				>
           {content.body}

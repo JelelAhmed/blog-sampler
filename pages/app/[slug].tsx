@@ -97,15 +97,15 @@ const App: FC<{ folders?: any[]; activeFolder?: any; activeDoc?: any; activeDocs
 			(
         <Pane className="sidebar" width={300} position="fixed" top={0} left={0} background="tint2" height="100vh" borderRight>
 					<Pane padding={majorScale(2)} display="flex" alignItems="center" justifyContent="space-between">
-						<Logo />
+						<Logo isSmallScreen={isSmallScreen} />
 						<NewFolderButton onClick={() => setIsShown(true)} />
 						</Pane>
 						<Pane>
-							<PostList toggleSideSheet={toggleSideSheet} getSelectedPost={getSelectedPost} posts={postsData} niche={slug}/>
+							<PostList toggleSideSheet={toggleSideSheet} getSelectedPost={getSelectedPost} posts={postsData} />
 					  </Pane>
 				</Pane>
 			): (
-				<Pane zIndex='33' height='100vh' position="fixed" marginTop={majorScale(6)} left={0}>
+				<Pane zIndex={33} height='100vh' position="fixed" marginTop={majorScale(6)} left={0}>
 					{/* {isSideSheetOpen 
 						? null 
 						: <Button 
@@ -121,7 +121,7 @@ const App: FC<{ folders?: any[]; activeFolder?: any; activeDoc?: any; activeDocs
 						isShown={isSideSheetOpen}
 						onCloseComplete={isSideSheetOpen ? toggleSideSheet : null}>
 						<Pane paddingY={majorScale(1)} marginTop={majorScale(3)} display="flex" alignItems="center" justifyContent="space-between">
-							<PostList getSelectedPost={getSelectedPost} toggleSideSheet={toggleSideSheet} posts={postsData} niche={slug}/>
+							<PostList getSelectedPost={getSelectedPost} toggleSideSheet={toggleSideSheet} posts={postsData}/>
 						</Pane>						
 					</SideSheet>
 				</Pane>
@@ -224,31 +224,3 @@ export const getServerSideProps = async (context) => {
 
 
 export default App;
-
-
-
-
-function ButtonIconExample() {
-  return (
-    <>
-      <Button marginY={8} marginRight={12} iconAfter={CogIcon}>
-        Settings
-      </Button>
-      <Button marginY={8} marginRight={12} iconBefore={EditIcon}>
-        Edit
-      </Button>
-      <Button marginY={8} marginRight={12} iconBefore={ManualIcon}>
-        Docs
-      </Button>
-      <Button marginY={8} marginRight={12} iconBefore={TrashIcon} intent="danger">
-        Delete...
-      </Button>
-      <Button marginY={8} marginRight={12} iconBefore={SearchIcon}>
-        Search
-      </Button>
-      <Button marginY={8} marginRight={12} iconAfter={CaretDownIcon}>
-        Filter
-      </Button>
-    </>
-  )
-}

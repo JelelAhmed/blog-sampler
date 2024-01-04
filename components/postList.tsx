@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { title } from 'process';
 
-const PostList: FC<{ posts: any; niche: string; title: string; toggleSideSheet: () => void; getSelectedPost: (post: any) => void }> = ({ toggleSideSheet, posts, niche, getSelectedPost }) => {
+const PostList: FC<{ posts: any; toggleSideSheet: () => void; getSelectedPost: (post: any) => void }> = ({ toggleSideSheet, posts, getSelectedPost }) => {
   const router = useRouter();
 
 	console.log('Received toggleSideSheet prop:', toggleSideSheet);
@@ -15,7 +15,7 @@ const PostList: FC<{ posts: any; niche: string; title: string; toggleSideSheet: 
 			<Menu>
 				{posts.map((postData, index) => (
 					<Link
-						padding={majorScale(2)}
+						// padding={majorScale(2)}
 						key={index}
 						href="/app/[slug]"
 						as={`/app/${postData.frontMatter.slug}`} // Replace with the actual property representing the slug

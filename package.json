@@ -2,12 +2,12 @@
   "name": "app",
   "version": "0.1.0",
   "private": true,
-		"scripts": {
-			"start": "next start -p 4000",
-			"build": "next build",
-			"dev": "next dev -p 4000",
-			"prestart": "next build"
-		},
+  "scripts": {
+    "start": "next start -p 4000",
+    "build": "next build",
+    "dev": "next dev -p 4000",
+    "prestart": "next build"
+  },
   "dependencies": {
     "@bomdi/codebox": "^1.0.10",
     "@editorjs/checklist": "^1.3.0",

@@ -1,38 +1,40 @@
 import React, { FC } from 'react'
-import { Pane, majorScale, Text, Button } from 'evergreen-ui'
 import NextLink from 'next/link'
+
+import OpenSideSheet from '../components/openSideSheet';
+import { Pane, majorScale, Text, Button, PersonIcon } from 'evergreen-ui'
 import { useSession } from 'next-auth/client'
 import Container from './container'
 import Logo from './logo'
 
-const HomeNav: FC<{ links?: { name: string; link: string }[] }> = ({ links }) => {
+const HomeNav: FC<{ links?: { name: string; link: string }[]; isSmallScreen: any; toggleSideSheet: () => void }> = ({ links, isSmallScreen, toggleSideSheet }) => {
   const [session] = useSession()
 
   return (
     <nav>
-      <Pane background="white" width="100vw" paddingY={majorScale(1)} borderBottom height={majorScale(9)}>
+      <Pane 
+				background="white" 
+				width="100vw" 
+				paddingY={majorScale(1)} 
+				borderBottom 
+				height={isSmallScreen ? majorScale(6) : majorScale(9)}
+			>
         <Container height="100%">
-          <Pane display="flex" justifyContent="space-between" alignItems="center" height="100%">
-            <Logo />
+          <Pane padding={majorScale(2)} display="flex" justifyContent="space-between" alignItems="center" height="100%">
+					{isSmallScreen ? <OpenSideSheet toggleSideSheet={toggleSideSheet} /> : <Logo />}
 
             <Pane display="flex" justifyContent="space-around" alignItems="center">
-              {links && links.length > 0
-                ? links.map((link) => (
-                    <Pane paddingX={majorScale(3)} key={link.name}>
-                      <NextLink href="/blog">
-                        <a>
-                          <Text fontSize="16px">Blog</Text>
-                        </a>
-                      </NextLink>
-                    </Pane>
-                  ))
-                : null}
-
-              <Pane paddingX={majorScale(3)}>
-                <NextLink href={session ? '/app' : '/signin'}>
+              <Pane paddingX={majorScale(1)}>
+                <NextLink href={'https://www.fiverr.com/jelel6'}>
                   <a>
-                    <Button appearance="primary" fontSize="16px">
-                      {session ? 'Dashboard' : 'Sign up'}
+                    <Button 
+											display='flex' 
+											appearance="minimal" 
+											size="medium" 
+											iconBefore={PersonIcon}
+											fontSize={isSmallScreen ? '12px' : '16px'}
+										>
+                      {'Contact Me'}
                     </Button>
                   </a>
                 </NextLink>

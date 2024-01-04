@@ -7,14 +7,21 @@ const Intro: FC<{ content: { title: string; body: string } }> = ({ content }) =>
       width="100%"
       display="flex"
       alignItems="left"
-      paddingY={majorScale(2)}
+      marginTop={majorScale(2)}
       // height={`calc(100vh - ${majorScale(9)}px)`}
     >
-      <Pane>
+      <Pane paddingX={majorScale(2)}>
         <Heading fontSize="clamp(2rem, 8vw, 4.5rem)" lineHeight="clamp(2rem, 8vw, 6rem)" marginBottom={majorScale(1)}>
           {content.title}
         </Heading>
-        <Paragraph fontSize="clamp(1.2rem, 4vw, 1.2rem)" lineHeight="clamp(1.2rem, 4vw, 2rem)">
+        <Paragraph 
+					fontSize="clamp(1.2rem, 4vw, 1.2rem)" 
+					lineHeight="clamp(1.2rem, 4vw, 2rem)"
+					fontFamily="Source Sans Pro"
+					fontWeight="lighter"
+					lineHeight="1.5"
+					letterSpacing="0.01"
+				>
           {content.body}
         </Paragraph>
       </Pane>

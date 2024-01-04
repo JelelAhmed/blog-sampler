@@ -20,14 +20,19 @@ const Home: FC<{ intro: any; content: any; categories: any }> = ({ intro, catego
   return (
     <Pane background="
 		#fdfdfd;
-		opacity: 0.8;
-		background-image:  radial-gradient(#141415 0.5px, transparent 0.5px), radial-gradient(#141415 0.5px, #fdfdfd 0.5px);
-		background-size: 20px 20px;
-		background-position: 0 0,10px 10px"
+			opacity: 0.8;
+			background-image:  radial-gradient(#141415 0.5px, transparent 0.5px), radial-gradient(#141415 0.5px, #fdfdfd 0.5px);
+			background-size: 20px 20px;
+			background-position: 0 0,10px 10px"
+		fontFamily="Source Sans Pro"
+		fontSize="16px"
+		fontWeight="lighter"
+		lineHeight="1.5"
+		letterSpacing="0.01"
 		>
 			<header>
 				<HomeNav />
-				<Container>
+				<Container> 
 					<Intro content={intro} />
 				</Container>
 			</header>
@@ -45,7 +50,7 @@ const Home: FC<{ intro: any; content: any; categories: any }> = ({ intro, catego
 
 Home.defaultProps = {
 
-	intro: { title: "Jelel6's Blog Samples", body: "Seeing is believing, So I welcome you to view my writing samples! Please, select a categories from the list below to read my some of my previous works under that categories. You can always come back to this page. enjoy"},
+	intro: { title: "Blog Samples", body: "Welcome to a journey through words, where seeing truly is believing! I invite you to explore my writing samples, each a testament to my passion for crafting engaging and impactful content. Choose a category from the list below to immerse yourself in a collection of my previous works. Feel free to return to this page anytime; your literary adventure awaits. Enjoy the exploration!"},
 }
 
 

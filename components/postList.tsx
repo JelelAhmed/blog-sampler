@@ -13,24 +13,24 @@ const PostList: FC<{ posts: any; niche: string; title: string; toggleSideSheet: 
   return (
     <Pane paddingY={majorScale(2)}>
 			<Menu>
-  {posts.map((postData, index) => (
-    <Link
-		padding={majorScale(2)}
-      key={index}
-      href="/app/[slug]"
-      as={`/app/${postData.frontMatter.slug}`} // Replace with the actual property representing the slug
-    >
-      <div>
-        <a onClick={(e) => { e.preventDefault(); getSelectedPost(postData); console.log('Calling toggleSideSheet'); toggleSideSheet()}}>
-          <Menu.Item key={index} icon={<FolderCloseIcon />} marginTop={majorScale(3)} color='green'>
-            {postData.frontMatter.title}
-          </Menu.Item>
-        </a>
-      </div>
-    </Link>
-  ))}
-</Menu>
-  </Pane>
+				{posts.map((postData, index) => (
+					<Link
+						padding={majorScale(2)}
+						key={index}
+						href="/app/[slug]"
+						as={`/app/${postData.frontMatter.slug}`} // Replace with the actual property representing the slug
+					>
+						<div>
+							<a onClick={(e) => { e.preventDefault(); getSelectedPost(postData); toggleSideSheet()}}>
+								<Menu.Item color='#85A3FF' key={index} icon={<FolderCloseIcon color="#85A3FF" />} marginTop={majorScale(3)}>
+									{postData.frontMatter.title}
+								</Menu.Item>
+							</a>
+						</div>
+					</Link>
+				))}
+			</Menu>
+  	</Pane>
   );
 };
 

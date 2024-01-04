@@ -4,7 +4,7 @@ import fs from 'fs'
 import hydrate from 'next-mdx-remote/hydrate';
 import renderToString from 'next-mdx-remote/render-to-string';
 import matter from 'gray-matter';
-import { majorScale, Pane, Heading, Text, Button, SideSheet } from 'evergreen-ui';
+import { majorScale, Pane, Heading, Text, Button, SideSheet, ManualIcon } from 'evergreen-ui';
 import Logo from '../../components/logo';
 import NewFolderButton from '../../components/newFolderButton';
 import PostList from '../../components/postList';
@@ -43,11 +43,6 @@ const App: FC<{ folders?: any[]; activeFolder?: any; activeDoc?: any; activeDocs
 	const title = selectedPost.frontMatter.title
 
 
-  // Access the frontMatter of the first item in the array
-  // const frontMatterOfFirstPost = selectedPost ? selectedPost.frontMatter : null;
-	// console.log(frontMatterOfFirstPost.title, 'title of second frontMatter')
-
-
 
 	useEffect(() => {
 		// console.log(selectedPost, 'useEffect');
@@ -84,7 +79,6 @@ const App: FC<{ folders?: any[]; activeFolder?: any; activeDoc?: any; activeDocs
     setIsSideSheetOpen(true);
   };
 
-  // Function to handle closing the SideSheet
   const closeSideSheet = () => {
     setIsSideSheetOpen(false);
 	}
@@ -92,8 +86,6 @@ const App: FC<{ folders?: any[]; activeFolder?: any; activeDoc?: any; activeDocs
 	const toggleSideSheet = () => {
 		setIsSideSheetOpen(!isSideSheetOpen)
 	}
-	// const { content } = post
-  // Your component logic
 
 	return (
     <Pane>
@@ -113,14 +105,22 @@ const App: FC<{ folders?: any[]; activeFolder?: any; activeDoc?: any; activeDocs
 					  </Pane>
 				</Pane>
 			): (
-				<Pane zIndex='1' height='100vh' position="fixed" marginTop={majorScale(9)} left={0}>
-					{isSideSheetOpen ? null : <Button onClick={toggleSideSheet}>See Topics</Button> }
+				<Pane zIndex='33' height='100vh' position="fixed" marginTop={majorScale(6)} left={0}>
+					{/* {isSideSheetOpen 
+						? null 
+						: <Button 
+								iconBefore={ManualIcon} 
+								appearance='minimal'
+								fontSize='20px' 
+								onClick={toggleSideSheet}>
+									See Topics
+							</Button> } */}
 					<SideSheet
 						width='70vw' 
 						position='left' 
 						isShown={isSideSheetOpen}
 						onCloseComplete={isSideSheetOpen ? toggleSideSheet : null}>
-						<Pane padding={majorScale(2)} marginTop={majorScale(8)} display="flex" alignItems="center" justifyContent="space-between">
+						<Pane paddingY={majorScale(1)} marginTop={majorScale(3)} display="flex" alignItems="center" justifyContent="space-between">
 							<PostList getSelectedPost={getSelectedPost} toggleSideSheet={toggleSideSheet} posts={postsData} niche={slug}/>
 						</Pane>						
 					</SideSheet>
@@ -132,7 +132,7 @@ const App: FC<{ folders?: any[]; activeFolder?: any; activeDoc?: any; activeDocs
       </Head>
 			<Pane zIndex={346} position="fixed" top={0} left={0}>
 				<header>
-					<HomeNav />
+					<HomeNav toggleSideSheet={toggleSideSheet} isSmallScreen={isSmallScreen} />
 				</header>
 			</Pane>
       <main>
@@ -226,3 +226,29 @@ export const getServerSideProps = async (context) => {
 export default App;
 
 
+
+
+function ButtonIconExample() {
+  return (
+    <>
+      <Button marginY={8} marginRight={12} iconAfter={CogIcon}>
+        Settings
+      </Button>
+      <Button marginY={8} marginRight={12} iconBefore={EditIcon}>
+        Edit
+      </Button>
+      <Button marginY={8} marginRight={12} iconBefore={ManualIcon}>
+        Docs
+      </Button>
+      <Button marginY={8} marginRight={12} iconBefore={TrashIcon} intent="danger">
+        Delete...
+      </Button>
+      <Button marginY={8} marginRight={12} iconBefore={SearchIcon}>
+        Search
+      </Button>
+      <Button marginY={8} marginRight={12} iconAfter={CaretDownIcon}>
+        Filter
+      </Button>
+    </>
+  )
+}

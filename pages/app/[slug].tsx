@@ -127,7 +127,7 @@ const App: FC<{ folders?: any[]; activeFolder?: any; activeDoc?: any; activeDocs
 				</Pane>
 			)}
       <Head>
-        <title>{`Known Blog | ${'frontMatter.title'}`}</title>
+        <title>{`Jelel6 Samples | ${selectedPost.frontMatter.title}`}</title>
         <meta name="description" content={'frontMatter.summary'} />
       </Head>
 			<Pane zIndex={346} position="fixed" top={0} left={0}>
@@ -222,47 +222,6 @@ export const getServerSideProps = async (context) => {
   }
 };
 
-
-
-  // Use Promise.all to wait for all promises to resolve
-  
-
-
-
-// export const getServerSideProps = async (context) => {
-//   try {
-//     // Extract slug from context.query
-//     const { slug } = context.query;
-// 		console.log(slug, 'getServerslug')
-//     // Check if slug is defined
-//     if (!slug) {
-//       throw new Error("Slug is undefined");
-//     }
-
-//     // Find the category that contains the posts with the specified slug
-    
-
-//     // Extract all posts for the found category or default to an empty array
-//     const postsForCategory = blogPosts[slug]
-// 		console.log(postsForCategory, 'postForCategoryS')
-
-//     // Return the posts as props
-//     return {
-//       props: {
-//         postsForCategory,
-//       },
-//     };
-//   } catch (error) {
-//     console.error("Error in getServerSideProps:", error.message);
-
-//     // Return an empty array if an error occurs
-//     return {
-//       props: {
-//         postsForCategory: [],
-//       },
-//     };
-//   }
-// };
 
 export default App;
 

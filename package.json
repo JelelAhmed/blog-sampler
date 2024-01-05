@@ -38,11 +38,12 @@
     "next-auth": "^3.1.0",
     "next-connect": "^0.9.1",
     "next-mdx-remote": "^1.0.0",
-    "react": "17.0.1",
+    "react": "^16.8.0",
     "react-dom": "17.0.1",
     "react-editor-js": "^1.7.0",
     "reflect-metadata": "^0.1.13",
-    "typeorm": "^0.2.29"
+    "typeorm": "^0.2.29",
+    "vercel": "^33.0.2"
   },
   "devDependencies": {
     "@types/mongodb": "^3.5.34",

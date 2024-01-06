@@ -59,5 +59,9 @@
   },
   "resolutions": {
     "typeorm": "0.2.28"
+  },
+
+	"engines": {
+    "node": ">=16.13.2"
   }
 }

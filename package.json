@@ -33,7 +33,7 @@
     "mongodb": "^3.6.3",
     "morgan": "^1.10.0",
     "nanoid": "^3.1.18",
-    "next": "10.0.3",
+    "next": "10.0.6",
     "next-auth": "^3.1.0",
     "next-connect": "^0.9.1",
     "next-mdx-remote": "^1.0.0",

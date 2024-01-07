@@ -1674,11 +1674,6 @@
   resolved "https://registry.yarnpkg.com/@sqltools/formatter/-/formatter-1.2.5.tgz#3abc203c79b8c3e90fd6c156a0c62d5403520e12"
   integrity sha512-Uy0+khmZqUrUGm5dmMqVlnvufZRSK0FbYzVgp0UMstm+F5+W2/jnEEQyc9vo1ZR/E5ZI/B1WjjoTqBqwJL6Krw==
 
-"@stencil/core@^2.0.1":
-  version "2.22.3"
-  resolved "https://registry.yarnpkg.com/@stencil/core/-/core-2.22.3.tgz#83987e20bba855c450f6d6780e3a20192603f13f"
-  integrity sha512-kmVA0M/HojwsfkeHsifvHVIYe4l5tin7J5+DLgtl8h6WWfiMClND5K3ifCXXI2ETDNKiEk21p6jql3Fx9o2rng==
-
 "@tootallnate/once@1":
   version "1.1.2"
   resolved "https://registry.yarnpkg.com/@tootallnate/once/-/once-1.1.2.tgz#ccb91445360179a04e7fe6aff78c00ffc1eeaf82"
@@ -9777,13 +9772,6 @@ zen-observable@0.8.15:
   version "0.8.15"
   resolved "https://registry.yarnpkg.com/zen-observable/-/zen-observable-0.8.15.tgz#96415c512d8e3ffd920afd3889604e30b9eaac15"
   integrity sha512-PQ2PC7R9rslx84ndNBZB/Dkv8V8fZEpk83RLgXtYd0fwUgEjseMn1Dgajh2x6S8QbZAFa9p2qVCEuYZNgve0dQ==
-
-zoe@^2.2.100:
-  version "0.0.3"
-  resolved "https://registry.yarnpkg.com/zoe/-/zoe-0.0.3.tgz#efc7ef83fe4235e9522eb36f4df59c3356feeddf"
-  integrity sha512-A2INtJaEBlyG5Kjn/Ps0+7UiLumsza6KB2kQyfwIEzQbrxlpD3UceZKjdPXRsSLqINSLbihyhHBJuEsRlF1LVw==
-  dependencies:
-    "@stencil/core" "^2.0.1"
 
 zwitch@^1.0.0:
   version "1.0.5"

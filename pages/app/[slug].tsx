@@ -152,12 +152,12 @@ const App: FC<{ folders?: any[]; activeFolder?: any; activeDoc?: any; activeDocs
 						<Pane><FrontMatter frontMatter={frontMatter} /></Pane>	
 						</Heading>
 						<Text
-							fontFamily="Source Sans Pro"
+							fontFamily='Source Sans 3'
 							fontSize="16px"
-							fontWeight="lighter"
+							fontWeight="300"
 							lineHeight="1.5"
 							letterSpacing="0.01"
-							color="#333333"
+							// color="#333333"
 							marginBottom={majorScale(3)}
 						>
 							{content}

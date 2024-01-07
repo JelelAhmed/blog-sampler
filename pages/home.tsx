@@ -24,7 +24,7 @@ const Home: FC<{ intro: any; content: any; categories: any }> = ({ intro, catego
 			background-image:  radial-gradient(#141415 0.5px, transparent 0.5px), radial-gradient(#141415 0.5px, #fdfdfd 0.5px);
 			background-size: 20px 20px;
 			background-position: 0 0,10px 10px"
-		fontFamily="Source Sans Pro"
+		fontFamily="Source Sans 3', sans-serif"
 		fontSize="16px"
 		fontWeight="lighter"
 		lineHeight="1.5"

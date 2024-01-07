@@ -7,7 +7,7 @@ const Logo = ({ isSmallScreen, ...styles }) => {
   return (
     <Link href="/home">
       <a>
-        <Text fontFamily="Rancho" fontSize={isSmallScreen ? '17px' : '30px'} color="#47B881" {...styles}>
+        <Text fontFamily="'Style Script', cursive" fontSize={isSmallScreen ? '17px' : '30px'} color="#47B881" {...styles}>
           <strong>Jelel6.</strong>
         </Text>
       </a>

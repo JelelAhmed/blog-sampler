@@ -155,8 +155,8 @@ const App: FC<{ folders?: any[]; activeFolder?: any; activeDoc?: any; activeDocs
 							fontFamily='Source Sans 3'
 							fontSize="16px"
 							fontWeight="300"
-							lineHeight="1.5"
-							letterSpacing="0.01"
+							lineHeight="1.7"
+							letterSpacing="0.02"
 							// color="#333333"
 							marginBottom={majorScale(3)}
 						>
